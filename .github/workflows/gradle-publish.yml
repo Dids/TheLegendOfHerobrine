@@ -40,19 +40,19 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Test Gradle Build
-        run: gradle build --dry-run # just test build configuration
+        run: gradle build --dry-run --warning-mode all # just test build configuration
 
-      #- name: Gradle Build
-      #  uses: gradle/gradle-build-action@v2
-      #  with:
-      #    arguments: build
+      - name: Gradle Build
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build --warning-mode all
 
       # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
       # the publishing section of your build.gradle
-      #- name: Publish to GitHub Packages
-      #  uses: gradle/gradle-build-action@v2
-      #  with:
-      #    arguments: publish
-      #  env:
-      #    USERNAME: ${{ github.actor }}
-      #    TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish to GitHub Packages
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: publish --warning-mode all
+        env:
+          USERNAME: ${{ github.actor }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
